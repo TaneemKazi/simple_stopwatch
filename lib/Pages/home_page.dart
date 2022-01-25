@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors
+// ignore_for_file: prefer_const_constructors,, use_key_in_widget_constructors
 
 import 'dart:async';
 
@@ -22,14 +22,14 @@ class _HomePageState extends State<HomePage> {
   }
 
   String returnFormattedText() {
-    var mili = stopwatch.elapsed.inMilliseconds; // 1 sec = 1000 miliseconds
-    String miliseconds = (mili % 1000)
-        .toString()
-        .padLeft(3, "0"); // 1001 % 1000 -> 1, 1450 % 1000 -> 450
-    String seconds = ((mili ~/ 1000) % 60).toString().padLeft(2, "0");
-    String minutes = ((mili ~/ 1000) ~/ 60).toString().padLeft(2, "0");
+    // 1 sec = 1000 milliseconds
+    var milli = stopwatch.elapsed.inMilliseconds;
+    // 1001 % 1000 -> 1, 1450 % 1000 -> 450
+    String milliseconds = (milli % 1000).toString().padLeft(3, "0");
+    String seconds = ((milli ~/ 1000) % 60).toString().padLeft(2, "0");
+    String minutes = ((milli ~/ 1000) ~/ 60).toString().padLeft(2, "0");
 
-    return "$minutes:$seconds:$miliseconds";
+    return "$minutes:$seconds:$milliseconds";
   }
 
   @override
@@ -49,6 +49,7 @@ class _HomePageState extends State<HomePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
+            // Circle stop watch display
             CupertinoButton(
               onPressed: () {
                 handleStartStop();
@@ -72,62 +73,73 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
             ),
+
             // OutlinedButton(
             //   onPressed: () {
             //     stopwatch.reset();
             //   },
-            //   style: OutlinedButton.styleFrom(
-            //     backgroundColor: Colors.red
-            //   ),
+            //   style: OutlinedButton.styleFrom(backgroundColor: Colors.red),
             //   child: Container(
-            //       // alignment: Alignment.center,
-            //       decoration: BoxDecoration(
-            //         // color: Colors.lightGreenAccent,
-            //         shape: BoxShape.rectangle,
-            //         // border: Border.all(
-            //         //   color: Colors.blue,
-            //         //   width: 4,
-            //         // )
-            //       ),
-            //       child: Text("Reset",
-            //           style: TextStyle(
-            //             // backgroundColor: Colors.red,
-            //             color: Colors.white,
-            //             fontSize: 25,
-            //             fontWeight: FontWeight.normal,
-            //           )
-            //       ),
+            //     // alignment: Alignment.center,
+            //     decoration: BoxDecoration(
+            //       // color: Colors.lightGreenAccent,
+            //       shape: BoxShape.rectangle,
+            //       // border: Border.all(
+            //       //   color: Colors.blue,
+            //       //   width: 4,
+            //       // )
+            //     ),
+            //     child: Text("Reseting",
+            //         style: TextStyle(
+            //           // backgroundColor: Colors.red,
+            //           color: Colors.white,
+            //           fontSize: 25,
+            //           fontWeight: FontWeight.normal,
+            //         )),
             //   ),
             // ),
+// Buttons (Start & Reset)
 
-            CupertinoButton(
-              // padding: EdgeInsets.all(0),
-              borderRadius: BorderRadius.all(Radius.circular(14.0)),
-              color: Colors.red,
-              onPressed: () {stopwatch.reset();},
-              child: Container(
-                  alignment: Alignment.center,
-                  width: 55,
-                  height: 30,
-
-                  decoration: BoxDecoration(
-                      // shape: BoxShape.circle,
-                      // border: Border.all(
-                      //   color: Colors.blue,
-                      //   width: 4,
-                      // )
-                  ),
-                child: Text("Reset",
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      //backgroundColor: Colors.red,
-                      color: Colors.white,
-                      fontSize: 25,
-                      fontWeight: FontWeight.normal,
-                    )
-                )
-              )
-
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                CupertinoButton(
+                    // padding: EdgeInsets.all(0),
+                    borderRadius: BorderRadius.all(Radius.circular(20.0)),
+                    color: Color(0xFF68AD6B),
+                    onPressed: () {
+                      handleStartStop();
+                    },
+                    child: Container(
+                        alignment: Alignment.center,
+                        width: 45,
+                        height: 30,
+                        child: Text("Start",
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 22,
+                              fontWeight: FontWeight.normal,
+                            )))),
+                CupertinoButton(
+                    // padding: EdgeInsets.all(0),
+                    borderRadius: BorderRadius.all(Radius.circular(20.0)),
+                    color: Color(0xFFE53737),
+                    onPressed: () {
+                      stopwatch.reset();
+                    },
+                    child: Container(
+                        alignment: Alignment.center,
+                        width: 45,
+                        height: 30,
+                        child: Text("Reset",
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 20,
+                              fontWeight: FontWeight.normal,
+                            )))),
+              ],
             )
           ],
         ),
